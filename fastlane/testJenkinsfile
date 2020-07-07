@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    }
+    parameters {
+        booleanParam(defaultValue: true, description: 'Build Android?', name: 'android')
+        booleanParam(defaultValue: true, description: 'Build iOS?', name: 'ios')
+    }
+
+    stages {
+        stage ('Initial') {
+            steps {
+                sh "fastlane --version"
+                sh "cp ~/Keys/rntsmobx-build.keystore ./android/app/rntsmobx-build.keystore"
+                sh "npm ci"
+                sh "rm -rf ./node_modules"
+                sh "npm install"
+            }
+        }
+        stage ('Test release Android') {
+            when {
+                expression { return params.android }
+            }
+            steps {
+                sh "bundle exec fastlane android build"
+            }
+        }
+        stage ('Test release iOS') {
+            when {
+                expression { return params.ios }
+            }   
+            steps {
+                sh "bundle exec fastlane ios build"
+            }
+        }
+    }
+
+    post {        
+        always {
+            cleanWs()
+        }
+    }
+}

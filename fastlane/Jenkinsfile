@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    }
+    parameters {
+        booleanParam(defaultValue: true, description: 'Build Android?', name: 'android')
+        booleanParam(defaultValue: true, description: 'Build iOS?', name: 'ios')
+    }
+
+    stages {
+        stage ('Initial') {
+            steps {
+                slackSend (color: '#007ACC', message: "*Action:* Build rntsmobx \n*Branch:* `$env.BRANCH_NAME` \n*Build URL:* $BUILD_URL")
+                slackSend (color: '#007ACC', message: "Checking Fastlane version ...")
+                sh "fastlane --version"
+                slackSend (color: '#007ACC', message: "Bumping app version ...")
+                slackSend (color: '#007ACC', message: "Installing dependencies ...")
+                sh "npm ci"
+                sh "rm -rf ./node_modules"
+                sh "npm install"
+                sh "bundle exec fastlane patch"
+                sh "cp ~/Keys/rntsmobx-build.keystore ./android/app/rntsmobx-build.keystore"   
+            }
+        }
+        stage ('Release Android') {
+            when {
+                expression { return params.android }
+            }
+            steps {
+                slackSend (color: '#007ACC', message: "Releasing Android APK to App Center ...")
+                sh "bundle exec fastlane android release"
+                slackSend (color: '#78B037', message: "New APK is released on App Center")
+            }
+        }
+        stage ('Release iOS') {
+            when {
+                expression { return params.ios }
+            }   
+            steps {
+                slackSend (color: '#007ACC', message: "Releasing iOS IPA to App Center ...")
+                sh "bundle exec fastlane ios release"
+                slackSend (color: '#78B037', message: "New IPA is released on App Center")
+            }
+        }
+    }
+
+    post {        
+        always {
+            cleanWs()
+        }
+        failure {
+            slackSend (color: "#FF0000", message: "We failed to build the rntsmobx project.")
+		}
+    }
+}

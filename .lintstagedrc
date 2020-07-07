@@ -1,0 +1,6 @@
+{
+  "linters": {
+    "**/*.{ts,tsx,js,jsx,json,html}": ["prettier --write", "yarn test","git add"]
+  },
+  "ignore": ["**/package-lock.json"]
+}

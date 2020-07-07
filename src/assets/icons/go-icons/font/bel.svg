@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2020 by original authors @ fontello.com</metadata>
+<defs>
+<font id="bel" horiz-adv-x="1000" >
+<font-face font-family="bel" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="bell" unicode="&#xe87f;" d="M750 301v132a250 250 0 0 1-208 247v45a42 42 0 0 1-84 0v-45a250 250 0 0 1-208-247v-132a125 125 0 0 1-83-118v-83a42 42 0 0 1 41-42h131a167 167 0 0 1 322 0h131a42 42 0 0 1 41 42v83a125 125 0 0 1-83 118z m-417 132a167 167 0 0 0 334 0v-125h-334z m167-416a83 83 0 0 0-72 41h144a83 83 0 0 0-72-41z m250 125h-500v41a42 42 0 0 0 42 42h416a42 42 0 0 0 42-42z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>

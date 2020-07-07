@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    {
+      "name": "@zeplin/cli-connect-react-plugin"
+    }
+  ],
+  "projects": ["5eb0d531b410f11b778215f5"],
+  "styleguides": ["5eb12539b4a211b07b6361eb"],
+  "components": [
+    {
+      "path": "src/components/custom-button/button-primary/index.tsx",
+      "zeplinNames": [
+        "Positive / Solid / L / Fix width / Normal ",
+        "Negative / Solid / No Icon / L / Tap",
+        "Negative / Solid / No Icon / L / Normal"
+      ]
+    }
+  ],
+  "github": {
+    "repository": "kms-grove/grove-one",
+    "branch": "develop"
+  }
+}
